@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @language_strength.name %>
+</p>
+
+<p>
+  <strong>Strength:</strong>
+  <%= @language_strength.strength %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @language_strength.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_language_strength_path(@language_strength) %> |
+<%= link_to 'Back', language_strengths_path %>

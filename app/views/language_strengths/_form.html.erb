@@ -1,0 +1,29 @@
+<%= form_for(@language_strength) do |f| %>
+  <% if @language_strength.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@language_strength.errors.count, "error") %> prohibited this language_strength from being saved:</h2>
+
+      <ul>
+      <% @language_strength.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :strength %><br>
+    <%= f.number_field :strength %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

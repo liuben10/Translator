@@ -1,0 +1,29 @@
+<h1>Listing language_strengths</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Strength</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @language_strengths.each do |language_strength| %>
+      <tr>
+        <td><%= language_strength.name %></td>
+        <td><%= language_strength.strength %></td>
+        <td><%= language_strength.user_id %></td>
+        <td><%= link_to 'Show', language_strength %></td>
+        <td><%= link_to 'Edit', edit_language_strength_path(language_strength) %></td>
+        <td><%= link_to 'Destroy', language_strength, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Language strength', new_language_strength_path %>
