@@ -3,9 +3,42 @@
 one:
   name: MyString
   strength: 1
-  user_id: 1
+  user_id: -1
 
 two:
   name: MyString2
   strength: 1
-  user_id: 1
+  user_id: -1
+  
+english_four:
+  name: English
+  strength: 4
+  user_id: -4
+  
+english_five:
+  name: English
+  strength: 5
+  user_id: -5
+  
+english_six:
+  name: English
+  strength: 6
+  user_id: -6
+  
+spanish_four:
+  name: Spanish
+  strength: 4
+  user_id: -4
+  
+english_one:
+  name: English
+  strength: 1
+  user_id: -99
+  
+spanish_one:
+  name: Spanish
+  strength: 1
+  user_id: -99
+
+
+

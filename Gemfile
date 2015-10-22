@@ -32,7 +32,6 @@ group :test, :development do
 end
 
 gem "byebug"
-gem "pry"
  
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

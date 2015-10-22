@@ -11,3 +11,9 @@ two:
   phone_number: MyString
   rating: 1
   bio: MyText
+
+spanish_and_english:
+  name: Spanish English
+  phone_number: 4445556666
+  rating: 3
+  bio: I am a Spanish and English speaker

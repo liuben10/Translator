@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :languages
+
   resources :translate_tasks
 
   resources :language_strengths

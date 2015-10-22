@@ -15,3 +15,14 @@ two:
   country: MyString
   owner_id: 1
   translator_id: 1
+  
+english_3_to_spanish_3:
+  name: FooBar
+  source_language: English
+  destination_language: Spanish
+  country: Guatemala
+  owner_id: 15
+  translator_id: 16
+  source_language_strength: 3
+  destination_language_strength: 3
+  

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010182957) do
+ActiveRecord::Schema.define(version: 20151020044318) do
 
   create_table "language_strengths", force: true do |t|
     t.string   "name"
@@ -23,6 +23,12 @@ ActiveRecord::Schema.define(version: 20151010182957) do
 
   add_index "language_strengths", ["user_id", "name"], name: "index_language_strengths_on_user_id_and_name", unique: true
 
+  create_table "languages", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "translate_tasks", force: true do |t|
     t.string   "name"
     t.string   "source_language"
@@ -32,6 +38,8 @@ ActiveRecord::Schema.define(version: 20151010182957) do
     t.integer  "translator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "source_language_strength"
+    t.integer  "destination_language_strength"
   end
 
   create_table "users", force: true do |t|
