@@ -41,6 +41,7 @@ class UserTest < ActiveSupport::TestCase
   end
   
   
+  
   test "destroy user will remove availability" do
     @user.make_available
     @user.destroy
