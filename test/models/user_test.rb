@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'utility.rb'
 class UserTest < ActiveSupport::TestCase
 
   setup do
@@ -30,10 +29,22 @@ class UserTest < ActiveSupport::TestCase
     assert !@user.is_suitable_for_translation("English", 5, "Spanish", 5)
   end
   
-  
-  test "test users that are suited for tests" do
-    assert User.get_users_with_language_strengths("English", 3, "Spanish", 3).length == 1
+  test "make user available" do
+    @user.make_available
+    assert_not_nil AvailableUser.find_by_user_id(@user.id)
   end
   
+  test "destroy user" do
+    @user.make_available
+    @user.make_unavailable
+    assert_nil AvailableUser.find_by_user_id(@user.id)
+  end
+  
+  
+  test "destroy user will remove availability" do
+    @user.make_available
+    @user.destroy
+    assert_nil AvailableUser.find_by_user_id(@user.id)
+  end
   
 end

@@ -31,6 +31,8 @@ group :test, :development do
   gem 'shoulda-matchers'
 end
 
+gem 'simplecov', :require => false, :group => :test
+
 gem "byebug"
  
 # Use ActiveModel has_secure_password

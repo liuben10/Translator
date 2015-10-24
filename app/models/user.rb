@@ -3,17 +3,15 @@
 class User < ActiveRecord::Base
   
   has_many :language_strengths, dependent: :destroy
-  
-  def self.get_users_with_language_strengths(source_language, source_strength, destination_language, destination_strength)
-     users = []
-     User.all.each do |user|
-       if (user.is_suitable_for_translation(source_language, source_strength, destination_language, destination_strength))
-         users << user
-       end
-     end
-     return users
+  has_one :available_user, dependent: :destroy
+
+  def make_available
+    create_available_user
   end
   
+  def make_unavailable
+    available_user.destroy
+  end
   
   def is_suitable_for_translation(source_language, source_strength, destination_language, destination_strength)
     source_strength_above_threshold = nil

@@ -16,10 +16,14 @@ class TranslateTaskTest < ActiveSupport::TestCase
     @user.save
     @english_strength.save
     @spanish_strength.save
+    @available_user = AvailableUser.create :user_id => @user.id
+    @available_user.save
   end
   
-  test "there is only one user suited for this translate_task" do
-    assert @translate_task.get_possible_users[0] == @user
+  test "Will find a single user with the necessary language strength" do
+    assert @translate_task.get_possible_users.length == 1
   end
+  
+
   
 end

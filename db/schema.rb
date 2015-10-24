@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020044318) do
+ActiveRecord::Schema.define(version: 20151024213410) do
+
+  create_table "available_users", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "available_users", ["user_id"], name: "index_available_users_on_user_id", unique: true
 
   create_table "language_strengths", force: true do |t|
     t.string   "name"
