@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024213410) do
+ActiveRecord::Schema.define(version: 20151101210428) do
 
   create_table "available_users", force: true do |t|
     t.integer  "user_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20151024213410) do
     t.datetime "updated_at"
     t.integer  "source_language_strength"
     t.integer  "destination_language_strength"
+    t.string   "translate_state"
   end
 
   create_table "users", force: true do |t|
@@ -57,6 +58,8 @@ ActiveRecord::Schema.define(version: 20151024213410) do
     t.text     "bio"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "available",    default: 0
+    t.string   "email"
   end
 
 end

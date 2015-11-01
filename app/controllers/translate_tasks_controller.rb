@@ -36,6 +36,15 @@ class TranslateTasksController < ApplicationController
       end
     end
   end
+  
+  
+  
+  
+  def get_suitable_users
+    respond_to do |format|
+      format.json {render json: @translate_task.get_possible_users}
+    end
+  end
 
   # PATCH/PUT /translate_tasks/1
   # PATCH/PUT /translate_tasks/1.json
@@ -49,6 +58,10 @@ class TranslateTasksController < ApplicationController
         format.json { render json: @translate_task.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def assign 
+    @translate_task.assign_user_to_task translate_task_assign_user_params
   end
 
   # DELETE /translate_tasks/1
@@ -67,6 +80,10 @@ class TranslateTasksController < ApplicationController
       @translate_task = TranslateTask.find(params[:id])
     end
 
+    def translate_task_assign_user_params
+      params.require(:translate_task).permit(:translator_id)
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def translate_task_params
       params.require(:translate_task).permit(:name, :source_language, :destination_language, :country, :owner_id, :translator_id)
