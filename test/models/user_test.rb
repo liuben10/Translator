@@ -40,7 +40,9 @@ class UserTest < ActiveSupport::TestCase
     assert_nil AvailableUser.find_by_user_id(@user.id)
   end
   
-  
+  test "encrypt_salted_password" do
+    puts User.generate_salt
+  end
   
   test "destroy user will remove availability" do
     @user.make_available

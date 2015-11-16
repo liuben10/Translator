@@ -1,4 +1,4 @@
-
+require 'digest'
 
 class User < ActiveRecord::Base
   
@@ -7,6 +7,21 @@ class User < ActiveRecord::Base
 
   def make_available
     create_available_user
+  end
+  
+  def self.generate_salt
+    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    string = (0...50).map { o[rand(o.length)] }.join
+    return string
+  end
+  
+  def self.encrypt_password password, salt
+    if (password.nil?)
+      return nil
+    end
+    salted_and_hashed_password = salt + Digest::MD5.hexdigest(password)
+    hashed = Digest::MD5.hexdigest(salted_and_hashed_password)
+    return hashed
   end
   
   def make_unavailable

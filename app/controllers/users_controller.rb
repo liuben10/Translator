@@ -24,8 +24,20 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-
+    salt = User.generate_salt
+    encrypted_password = User.encrypt_password user_params[:password], salt
+    user = {name: user_params[:name],
+       phone_number: user_params[:phone_number],
+       rating: user_params[:rating],
+       bio: user_params[:bio],
+       created_at: Time.now,
+       updated_at: Time.now,
+       available: 0,
+       email: user_params[:email],
+       password: encrypted_password,
+       salt: salt,
+       country: user_params[:country]}
+    @user = User.new(user)
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -35,6 +47,15 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  
+  def passwords_match
+    user = User.where(:email => login_params[:email])
+    if (User.encrypt_password(login_params[:password], user.salt) == user.password)
+      render :json => true
+    end
+    render json: "Password is incorrect. Please check it again.", status: :unprocessable_entity 
   end
 
   # PATCH/PUT /users/1
@@ -67,8 +88,13 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def login_params
+
+      params.permit(:email, :password)
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :phone_number, :rating, :bio, :email)
+      puts params
+      params.require(:user).permit(:name, :phone_number, :rating, :bio, :email, :country, :password, :salt)
     end
 end
