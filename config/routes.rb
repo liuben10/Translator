@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users
   
   post '/login', to: 'login#login', as: 'login_path'
-
+  get '/users/:id/language_strengths', to: 'users#get_languages_for_user', as: 'user_language_strengths'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

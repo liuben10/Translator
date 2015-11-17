@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_if_authenticated, only: [:get_languages_for_user]
   # GET /users
   # GET /users.json
   def index
@@ -10,6 +10,16 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    render json: {user: @user, language_strengths: @user.language_strengths}
+  end
+  
+  
+  def get_languages_for_user
+    @user = User.find(params[:id])
+    if (@user.nil?)
+      render :show, status: :not_found
+    end
+    render json: @user.language_strengths
   end
 
   # GET /users/new
@@ -24,6 +34,9 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    if(request.headers["Content-type"].nil?)
+       render status: :unsupported_media_type
+    end
     salt = User.generate_salt
     encrypted_password = User.encrypt_password user_params[:password], salt
     user = {name: user_params[:name],
@@ -48,15 +61,6 @@ class UsersController < ApplicationController
       end
     end
   end
-  
-  
-  def passwords_match
-    user = User.where(:email => login_params[:email])
-    if (User.encrypt_password(login_params[:password], user.salt) == user.password)
-      render :json => true
-    end
-    render json: "Password is incorrect. Please check it again.", status: :unprocessable_entity 
-  end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
@@ -72,6 +76,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def check_if_authenticated
+    authorization_header = request.headers["Authorization"]
+    if authenticated?(authorization_header)
+      render json: {message: "unauthorized"}, status: :unauthorized
+    end
+  end
+  
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -89,7 +100,6 @@ class UsersController < ApplicationController
     end
 
     def login_params
-
       params.permit(:email, :password)
     end
     # Never trust parameters from the scary internet, only allow the white list through.
